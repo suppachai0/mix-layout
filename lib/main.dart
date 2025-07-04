@@ -39,8 +39,8 @@ class MainApp extends StatelessWidget {
                   physics: const NeverScrollableScrollPhysics(),
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 3,
-                    crossAxisSpacing: 10,
-                    mainAxisSpacing: 10,
+                    crossAxisSpacing: 12,
+                    mainAxisSpacing: 12,
                     childAspectRatio: 1.0,
                   ),
                   itemCount: imagePaths.length,
@@ -56,16 +56,52 @@ class MainApp extends StatelessWidget {
                           ),
                         );
                       },
-                      child: Container(
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            color: Colors.black, // สีขอบ เช่น ดำ
-                            width: 3, // ความหนาของขอบ
+                      child: Hero(
+                        tag: imagePaths[index],
+                        child: Material(
+                          color: Colors.transparent,
+                          elevation: 6,
+                          borderRadius: BorderRadius.circular(18),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(18),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withOpacity(0.15),
+                                  blurRadius: 8,
+                                  offset: const Offset(2, 4),
+                                ),
+                              ],
+                              border: Border.all(
+                                color: Colors.teal.shade200,
+                                width: 2.5,
+                              ),
+                            ),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(16),
+                              child: Stack(
+                                fit: StackFit.expand,
+                                children: [
+                                  Image.asset(
+                                    imagePaths[index],
+                                    fit: BoxFit.cover,
+                                  ),
+                                  Positioned(
+                                    right: 6,
+                                    bottom: 6,
+                                    child: Container(
+                                      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                                      decoration: BoxDecoration(
+                                        color: Colors.black.withOpacity(0.45),
+                                        borderRadius: BorderRadius.circular(8),
+                                      ),
+                                      child: const Icon(Icons.zoom_in, color: Colors.white, size: 18),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
                           ),
-                        ),
-                        child: Image.asset(
-                          imagePaths[index],
-                          fit: BoxFit.cover,
                         ),
                       ),
                     );
@@ -73,7 +109,7 @@ class MainApp extends StatelessWidget {
                 ),
               ),
 
-              const Divider(),
+              const Divider(height: 32, thickness: 1.2),
 
               // ListView (ปรับให้สวยขึ้น + กดได้)
               ListView.builder(
@@ -81,37 +117,35 @@ class MainApp extends StatelessWidget {
                 physics: const NeverScrollableScrollPhysics(),
                 itemCount: 10,
                 itemBuilder: (context, index) {
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 12,
-                      vertical: 6,
-                    ),
+                  return AnimatedContainer(
+                    duration: const Duration(milliseconds: 350),
+                    curve: Curves.easeInOut,
+                    margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 7),
                     child: Card(
-                      elevation: 4,
+                      elevation: 6,
+                      shadowColor: Colors.teal.withOpacity(0.25),
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15),
+                        borderRadius: BorderRadius.circular(18),
                       ),
                       child: ListTile(
-                        leading: CircleAvatar(
-                          backgroundColor: Colors.teal,
-                          child: Text(
-                            '${index + 1}',
-                            style: const TextStyle(color: Colors.white),
-                          ),
-                        ),
                         title: Text(
                           'รายการที่ ${index + 1}',
-                          style: const TextStyle(fontWeight: FontWeight.bold),
+                          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                         ),
-                        subtitle: const Text('รายละเอียดเพิ่มเติมของรายการ'),
-                        trailing: const Icon(Icons.arrow_forward_ios, size: 16),
+                        subtitle: const Text('รายละเอียดเพิ่มเติมของรายการ', style: TextStyle(fontSize: 14)),
+                        trailing: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.teal.shade50,
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          padding: const EdgeInsets.all(6),
+                          child: const Icon(Icons.arrow_forward_ios, size: 16, color: Colors.teal),
+                        ),
                         onTap: () {
-                          // ตัวอย่างแสดงหน้าใหม่ (จะเอาภาพอะไรมาแสดงก็ได้)
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) =>
-                                  DetailPage(title: 'รายการที่ ${index + 1}'),
+                              builder: (context) => DetailPage(title: 'รายการที่ ${index + 1}'),
                             ),
                           );
                         },
