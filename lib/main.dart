@@ -14,9 +14,15 @@ class MainApp extends StatelessWidget {
       'assets/images/2.jpg',
       'assets/images/3.jpg',
       'assets/images/4.jpg',
+      'assets/images/5.jpg',
+      'assets/images/6.jpg',
+      'assets/images/7.jpg',
+      'assets/images/8.jpg',
+      'assets/images/9.jpg',
     ];
 
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
           title: const Text('mix layout'),
@@ -32,7 +38,7 @@ class MainApp extends StatelessWidget {
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
+                    crossAxisCount: 3,
                     crossAxisSpacing: 10,
                     mainAxisSpacing: 10,
                     childAspectRatio: 1.0,
@@ -52,7 +58,10 @@ class MainApp extends StatelessWidget {
                       },
                       child: Container(
                         decoration: BoxDecoration(
-                          border: Border.all(color: Colors.grey),
+                          border: Border.all(
+                            color: Colors.black, // สีขอบ เช่น ดำ
+                            width: 3, // ความหนาของขอบ
+                          ),
                         ),
                         child: Image.asset(
                           imagePaths[index],
