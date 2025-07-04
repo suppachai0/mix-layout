@@ -19,7 +19,7 @@ class MainApp extends StatelessWidget {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('Grid + List with Images'),
+          title: const Text('mix layout'),
           backgroundColor: Colors.teal,
         ),
         body: SingleChildScrollView(
